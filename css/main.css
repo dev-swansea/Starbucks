@@ -1,4 +1,6 @@
 body {
   color: aqua;
   font-size: 100px;
+  /* 상속때문에 body tag의 모든 것들은 나눔 고딕을 갖는다. */
+  font-family: "Nanum Gothic", sans-serif;
 }
