@@ -1,14 +1,9 @@
 /* COMMON */
 body {
-  /* 블랙은 조금 촌스러울 수 있다. */
   color: #333;
-  /* 상속때문에 body tag의 모든 것들은 나눔 고딕을 갖는다. */
   font-family: "Nanum Gothic", sans-serif;
-  /* 기본이 16px 이지만 다른 브라우저는 아닐 수도 있기때문에 명시해둔다. */
   font-size: 16px;
-  /* 100~900까지 9단계 중 400을 default로 */
   font-weight: 400;
-  /* 16px의 1.4배의 줄 높이(행간) */
   line-height: 1.4;
 }
 img {
@@ -18,17 +13,17 @@ a {
   text-decoration: none;
 }
 
-/* HEADER */
+/* Header */
 header {
-  background-color: royalblue;
+  background-color: #f6f5f0;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 header .inner {
   width: 1100px;
   height: 120px;
-  /* 오렌지 색상이 왼쪽부터 시작해서 붙어있으니 이것을 가운데로 옮기기 위해 width를 주고 margin x 를 auto로 주었다. */
   margin: 0 auto;
-  background-color: orange;
+
   position: relative;
 }
 header .logo {
@@ -36,37 +31,33 @@ header .logo {
   position: absolute;
   top: 0;
   bottom: 0;
-  /* 부모요소를 기준으로 왼쪽에 붙히자. */
   left: 0;
   margin: auto;
-  display: none;
 }
 
 header .sub-menu {
+  display: flex;
+  top: 10px;
+  right: 0;
+  position: absolute;
 }
-/* 띄어쓰기로 후손선택자를 선택한다. */
 header .sub-menu ul.menu {
-  /* 링크들을 수평으로 바꿔준다. */
   display: flex;
   font-family: Arial sans-serif;
 }
 header .sub-menu ul.menu li {
   position: relative;
 }
-/* 가상요소선택자 */
 header .sub-menu ul.menu li::before {
-  /* content가 없으면 before라는 가상요소는 생성되지 않는다, before는 인라인 요소 =>but absolute는 block요소로 바꿔준다. */
   content: "";
   width: 1px;
   height: 12px;
   background-color: #e5e5e5;
-  /* 부모요소는 li */
   position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
 }
-/* 여긴 가장 앞의 Sign In부분이라 굳이 실선이 필요가 없다. */
 header .sub-menu ul.menu li:first-child:before {
   display: none;
 }
@@ -80,10 +71,43 @@ header .sub-menu ul.menu li a:hover {
   color: #000;
 }
 header .sub-menu .search {
+  position: relative;
+  height: 34px;
 }
 
 header .sub-menu .search input {
+  width: 36px;
+  height: 34px;
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+  outline: none;
+  background-color: #fff;
+  /* input창에 쓰여질 글씨 색 */
+  color: #777;
+  font-size: 12px;
+  /* 전환 효과 */
+  transition: width 0.4s;
+}
+header .sub-menu .search input:focus {
+  width: 190px;
+  border-color: #669900;
 }
 
 header .sub-menu .search .material-icons {
+  /* 수직 정렬을 위해 높이값을 준다(아이콘 크기 또한 계산하기 때문,) */
+  height: 24px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 5px;
+  margin: auto;
+  /* 왜 전환 안되냐 ?.. */
+  transition: 0.4;
+}
+/* search와 focused는 일치선택자여야 한다. 왜냐면 search에 붙고 빠지니까 */
+header .sub-menu .search.focused .material-icons {
+  /* 투명도 100%로 바꾼거구나 ? 1이 기본값이니까 */
+  opacity: 0;
 }
