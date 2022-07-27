@@ -14,6 +14,9 @@ body {
 img {
   display: block;
 }
+a {
+  text-decoration: none;
+}
 
 /* HEADER */
 header {
@@ -36,4 +39,51 @@ header .logo {
   /* 부모요소를 기준으로 왼쪽에 붙히자. */
   left: 0;
   margin: auto;
+  display: none;
+}
+
+header .sub-menu {
+}
+/* 띄어쓰기로 후손선택자를 선택한다. */
+header .sub-menu ul.menu {
+  /* 링크들을 수평으로 바꿔준다. */
+  display: flex;
+  font-family: Arial sans-serif;
+}
+header .sub-menu ul.menu li {
+  position: relative;
+}
+/* 가상요소선택자 */
+header .sub-menu ul.menu li::before {
+  /* content가 없으면 before라는 가상요소는 생성되지 않는다, before는 인라인 요소 =>but absolute는 block요소로 바꿔준다. */
+  content: "";
+  width: 1px;
+  height: 12px;
+  background-color: #e5e5e5;
+  /* 부모요소는 li */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+/* 여긴 가장 앞의 Sign In부분이라 굳이 실선이 필요가 없다. */
+header .sub-menu ul.menu li:first-child:before {
+  display: none;
+}
+header .sub-menu ul.menu li a {
+  font-size: 12px;
+  padding: 11px 16px;
+  display: block;
+  color: #656565;
+}
+header .sub-menu ul.menu li a:hover {
+  color: #000;
+}
+header .sub-menu .search {
+}
+
+header .sub-menu .search input {
+}
+
+header .sub-menu .search .material-icons {
 }
