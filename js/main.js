@@ -1,24 +1,35 @@
 const searchEl = document.querySelector(".search");
-// document대신 searchEl를 넣어준다. => document도 하나의 요소로 볼 수 있다. 쉽게 html로 보자
 const searchInputEl = searchEl.querySelector("input");
 
-// icon을 클릭하는게 아니네 ??
 searchEl.addEventListener("click", () => {
-  // focus를 강제 적용해주는 명령 => 클릭해서 .search input을 클릭하면 포커스 해라
   searchInputEl.focus();
 });
 
 searchInputEl.addEventListener("focus", () => {
-  // input 요소에 focus가 되면 .search에 focused라는 className을 추가하겠다, 이후 css에서 focused를 만들어 작업해준다.
   searchEl.classList.add("focused");
-  // html속성을 attribute라고 부르는데, input에다 html속성을 지정할 때 사용한다.
   searchInputEl.setAttribute("placeholder", "통합검색");
 });
 
-// blur를 줘보자 => focus가 해제되면,
 searchInputEl.addEventListener("blur", () => {
-  // input 요소에 focus가 되면 .search에 focused라는 className을 추가하겠다, 이후 css에서 focused를 만들어 작업해준다.
   searchEl.classList.remove("focused");
-  // html속성을 attribute라고 부르는데, input에다 html속성을 지정할 때 사용한다.
   searchInputEl.setAttribute("placeholder", "");
 });
+
+// 클래스 선탁자는 웬만하면 부모 요소까지 적는구나 ?
+const bedgeEl = document.querySelector("header .bedges");
+// 윈도우는 브라우저창(보고있는 화면 자체?) 이라고 보면 된다. 윈도우 객체는 브라우저가 가지고 있는 명령들을 가지고 있다.
+// scroll할때마다 이벤트가 발생한다.=>페이지가 무거워질 수 있다. 화면 버벅임이 생길 수 있기 때문에 라이브러리를 이용해 scroll함수를 제어할 것이다. throttle은 cdn으로 연결한 라이브러리 메소드를 사용하는 것이다., 이건 제어 시간을 줘서 한 번씩만 실행되도록 하는 것이다.
+window.addEventListener(
+  "scroll",
+  _.throttle(() => {
+    if (window.scrollY > 500) {
+      // 벳지 숨기기
+      // gsap.to(요소, 지속시간, 옵션)
+      gsap.to(bedgeEl, 0.6, { opacity: 0, display: "none" });
+    } else {
+      // 벳지 보이기
+      gsap.to(bedgeEl, 0.6, { opacity: 1, display: "block" });
+    }
+  }, 300)
+);
+//_.throttle(함수, 시간)

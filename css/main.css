@@ -5,6 +5,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
+  height: 3000px;
 }
 img {
   display: block;
@@ -19,8 +20,14 @@ a {
 }
 /* Header */
 header {
+  /* width를 100%로 안주면 화면이 줄어들었을때 보이지 않음 */
+  width: 100%;
+  /* position: relative; */
   background-color: #f6f5f0;
   border-bottom: 1px solid #c8c8c8;
+  /* absolute와 fixed는 가로넓이가 최소한으로 줄어드려고 한다. 즉 width:auto가 된다.(?), 이제 relative가 아닌 fixed로 위치상의 부모요소가 된다. */
+  position: fixed;
+  top: 0;
 }
 
 header > .inner {
@@ -84,10 +91,8 @@ header .sub-menu .search input {
   border-radius: 5px;
   outline: none;
   background-color: #fff;
-  /* input창에 쓰여질 글씨 색 */
   color: #777;
   font-size: 12px;
-  /* 전환 효과 */
   transition: width 0.4s;
 }
 header .sub-menu .search input:focus {
@@ -96,19 +101,15 @@ header .sub-menu .search input:focus {
 }
 
 header .sub-menu .search .material-icons {
-  /* 수직 정렬을 위해 높이값을 준다(아이콘 크기 또한 계산하기 때문,) */
   height: 24px;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 5px;
   margin: auto;
-  /* 왜 전환 안되냐 ?.. */
-  transition: 0.4;
+  transition: 0.7;
 }
-/* search와 focused는 일치선택자여야 한다. 왜냐면 search에 붙고 빠지니까 */
 header .sub-menu .search.focused .material-icons {
-  /* 투명도 100%로 바꾼거구나 ? 1이 기본값이니까 */
   opacity: 0;
 }
 
@@ -126,32 +127,25 @@ header .main-menu .item .item__name {
   font-family: Arial, sans-serif;
   font-size: 13px;
 }
-/* name이 아니라 item 자체에 하는 것은 content에게도 영향을 미치기 때문이다. name, contents 따로 후버 효과를 줄 것이다. 즉 여기선 item에 마우스를 올리면 name이 바뀌는 것(name에 먹이는 거와 똑같) */
 header .main-menu .item:hover .item__name {
   background-color: #2c2a29;
   color: #669900;
-  /* 좌상단, 우상단만  */
   border-radius: 6px 6px 0 0;
 }
 
 header .main-menu .item .item__contents {
   width: 100%;
-  /* viewport 기준으로 배치, 여기서 중요한 것은 top이나 bottom 속성을 사용하지 않아 수직 위치 값이 없다면, 요소의 원래 위치를 그대로 사용한다. 만약 absolute를 사용했다면, (위차상)부모 요소를 기준으로 하므로 화면의 뷰포트 좌우 끝까지 늘어날 수 없게 된다. */
   position: fixed;
   left: 0;
   display: none;
 }
-/* 이걸 해줘야 main-menu에 마우스를 올렸을 때 contents__menu가 나타난다. */
 header .main-menu .item:hover .item__contents {
-  /* 지웠다가 blcok으로 보이게 하고 마우스를 위에 올린 상태면 계속해서 hover가 유지되는 거구나? */
   display: block;
 }
 
 header .main-menu .item .item__contents .contents__menu {
   background-color: #2c2a29;
-  /* 높이가 auto가 안된다 */
 }
-/* 자식 선택자를 선택한 이유는 ul이 두개이기 때문이다. 그래서 바로 자식에 해당하는 태그를 선택했다. */
 header .main-menu .item .item__contents .contents__menu > ul {
   padding: 20px 0;
   display: flex;
@@ -176,9 +170,7 @@ header .main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
 
 header .main-menu .item .item__contents .contents__texture {
   padding: 26px 0;
-  /* font는 상속되기 때문에 아래 적용시켜줄 필요 없다. */
   font-size: 12px;
-  /* 이미지가 repeat돼서 width를 채우게 된다. */
   background-image: url("/images/main_menu_pattern.jpg");
 }
 header .main-menu .item .item__contents .contents__texture h4 {
@@ -188,4 +180,21 @@ header .main-menu .item .item__contents .contents__texture h4 {
 header .main-menu .item .item__contents .contents__texture p {
   color: #669900;
   margin: 4px 0 14px;
+}
+
+/* bedges */
+header .bedges {
+  /* 부모는 header가 되겠다. 위치상의 부모로 하기 위해 relative를 추가해주자 */
+  position: absolute;
+  top: 132px;
+  right: 12px;
+}
+header .bedges .bedge {
+  /* hidden을 주지 않으면 깍이지 않는데, 그 이유는 div는 깍였지만 이미지가 깍이지 않은 것이라 hidden으로 넘치는 이미지를 숨겨버린 것이다. => 그 결과 깍이는 모양이 나옴 */
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  /* 10px은 blur고 4px은 머라고 ?.. */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
