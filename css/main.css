@@ -23,7 +23,7 @@ header {
   border-bottom: 1px solid #c8c8c8;
 }
 
-header .inner {
+header > .inner {
   height: 120px;
 }
 header .logo {
@@ -120,8 +120,6 @@ header .main-menu {
   right: 0;
   z-index: 1;
 }
-header .main-menu .item {
-}
 
 header .main-menu .item .item__name {
   padding: 10px 20px 34px 20px;
@@ -150,10 +148,44 @@ header .main-menu .item:hover .item__contents {
 }
 
 header .main-menu .item .item__contents .contents__menu {
-  background-color: red;
-  height: 200px;
+  background-color: #2c2a29;
+  /* 높이가 auto가 안된다 */
 }
+/* 자식 선택자를 선택한 이유는 ul이 두개이기 때문이다. 그래서 바로 자식에 해당하는 태그를 선택했다. */
+header .main-menu .item .item__contents .contents__menu > ul {
+  padding: 20px 0;
+  display: flex;
+}
+header .main-menu .item .item__contents .contents__menu > ul > li {
+  width: 220px;
+}
+header .main-menu .item .item__contents .contents__menu > ul > li h4 {
+  padding: 3px 0 12px 0;
+  font-size: 14px;
+  color: #fff;
+}
+header .main-menu .item .item__contents .contents__menu > ul > li ul li {
+  padding: 5px 0;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+header .main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
+  color: #669900;
+}
+
 header .main-menu .item .item__contents .contents__texture {
-  background-color: teal;
-  height: 100px;
+  padding: 26px 0;
+  /* font는 상속되기 때문에 아래 적용시켜줄 필요 없다. */
+  font-size: 12px;
+  /* 이미지가 repeat돼서 width를 채우게 된다. */
+  background-image: url("/images/main_menu_pattern.jpg");
+}
+header .main-menu .item .item__contents .contents__texture h4 {
+  color: #999;
+  font-weight: 700;
+}
+header .main-menu .item .item__contents .contents__texture p {
+  color: #669900;
+  margin: 4px 0 14px;
 }
