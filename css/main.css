@@ -12,6 +12,7 @@ img {
 }
 a {
   text-decoration: none;
+  /* color: #999; */
 }
 .inner {
   width: 1100px;
@@ -197,4 +198,33 @@ header .bedges .bedge {
   /* 10px은 blur고 4px은 머라고 ?.. */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+}
+
+/* visual */
+.visual {
+  /* header의 inner 높이값, header는 높이값이 없기때문에(auto) 최대한 줄어들려고 한다. 그래서 안의 콘텐츠인 inner의 높이값을 가진다. */
+  margin-top: 120px;
+  background-image: url("../images/visual_bg.jpg");
+  background-position: center;
+}
+.visual .inner {
+  /* 맨 위에 inner에 몇가지 속성을 지정해 놨지요?? */
+  height: 646px;
+  background-color: teal;
+}
+/* inner 생략해줘도 된다. 그냥 중앙으로 몰아주기 위함이기 때문에 visual과 직접적인 곤련은 없다. */
+.visual .title {
+}
+.visual .title .btn {
+}
+/* 일치 선택자 class:"cup1 image" 이렇게 되어있구나(둘 다 만족해야됨) */
+.visual .cup1.image {
+}
+.visual .cup1.text {
+}
+.visual .cup2.image {
+}
+.visual .cup2.text {
+}
+.visual .spoon {
 }
