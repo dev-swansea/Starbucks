@@ -19,6 +19,61 @@ a {
   margin: 0 auto;
   position: relative;
 }
+
+.btn {
+  width: 130px;
+  padding: 10px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  color: #333;
+  /* 부모요소로부터 특정 사이즈를 부여받을 수 있으니 여기서 명시한다. */
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: block;
+  transition: 0.4s;
+}
+.btn:hover {
+  background-color: #333;
+  color: #fff;
+}
+/* 일치선택자 */
+.btn.btn--reverse {
+  background-color: #333;
+  color: #fff;
+}
+.btn.btn--reverse:hover {
+  /* transparent(투명한, 명백한, 속이 뻔히 들여다 보이는, 명료한, 알기 쉬운)*/
+  background-color: transparent;
+  color: #333;
+}
+.btn.btn--brown {
+  color: #592b18;
+  border-color: #592b18;
+}
+.btn.btn--brown:hover {
+  color: #fff;
+  background-color: #592b18;
+}
+.btn.btn--gold {
+  color: #d9aa8a;
+  border-color: #d9aa8a;
+}
+.btn.btn--gold:hover {
+  color: #fff;
+  background-color: #d9aa8a;
+}
+.btn.btn--white {
+  color: #fff;
+  border-color: #fff;
+}
+.btn.btn--white:hover {
+  color: #333;
+  background-color: #fff;
+}
+
 /* Header */
 header {
   /* width를 100%로 안주면 화면이 줄어들었을때 보이지 않음 */
@@ -29,6 +84,7 @@ header {
   /* absolute와 fixed는 가로넓이가 최소한으로 줄어드려고 한다. 즉 width:auto가 된다.(?), 이제 relative가 아닌 fixed로 위치상의 부모요소가 된다. */
   position: fixed;
   top: 0;
+  z-index: 9;
 }
 
 header > .inner {
@@ -120,6 +176,7 @@ header .main-menu {
   position: absolute;
   bottom: 0;
   right: 0;
+  /* header에 z-index를 줘서 필요 없을거 같은데 */
   z-index: 1;
 }
 
@@ -210,21 +267,43 @@ header .bedges .bedge {
 .visual .inner {
   /* 맨 위에 inner에 몇가지 속성을 지정해 놨지요?? */
   height: 646px;
-  background-color: teal;
 }
 /* inner 생략해줘도 된다. 그냥 중앙으로 몰아주기 위함이기 때문에 visual과 직접적인 곤련은 없다. */
 .visual .title {
+  /* common에 inner에 포지션을 이미 지정해 놨기 때문에 구조상의 inner인 .visual .inner에 또 굳이 포지션을 먹일 필요가 없다. */
+  position: absolute;
+  top: 88px;
+  left: -10px;
 }
 .visual .title .btn {
+  position: absolute;
+  top: 259px;
+  left: 173px;
 }
 /* 일치 선택자 class:"cup1 image" 이렇게 되어있구나(둘 다 만족해야됨) */
 .visual .cup1.image {
+  position: absolute;
+  bottom: 0;
+  /* 0이면 공간이 오른쪽에 조금 존재한다. */
+  right: -47px;
 }
 .visual .cup1.text {
+  position: absolute;
+  top: 38px;
+  right: 171px;
 }
 .visual .cup2.image {
+  position: absolute;
+  bottom: 0;
+  right: 162px;
 }
 .visual .cup2.text {
+  position: absolute;
+  top: 321;
+  right: 416px;
 }
 .visual .spoon {
+  position: absolute;
+  bottom: 0;
+  left: 275px;
 }
