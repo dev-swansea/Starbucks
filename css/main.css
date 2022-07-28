@@ -276,6 +276,7 @@ header .bedges .bedge {
   left: -10px;
 }
 .visual .title .btn {
+  /* 위의 title에 absolute라는 포지션이 들어가 있으므로, 구조,위치상의 부모가 잘 될것이다.  */
   position: absolute;
   top: 259px;
   left: 173px;
