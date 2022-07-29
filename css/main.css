@@ -7,12 +7,12 @@ body {
   line-height: 1.4;
   height: 3000px;
 }
+/* img(인라인 요소) 하단에 Baseline 공백을 제거 */
 img {
   display: block;
 }
 a {
   text-decoration: none;
-  /* color: #999; */
 }
 .inner {
   width: 1100px;
@@ -26,7 +26,6 @@ a {
   border: 2px solid #333;
   border-radius: 4px;
   color: #333;
-  /* 부모요소로부터 특정 사이즈를 부여받을 수 있으니 여기서 명시한다. */
   font-size: 16px;
   font-weight: 700;
   text-align: center;
@@ -39,13 +38,11 @@ a {
   background-color: #333;
   color: #fff;
 }
-/* 일치선택자 */
 .btn.btn--reverse {
   background-color: #333;
   color: #fff;
 }
 .btn.btn--reverse:hover {
-  /* transparent(투명한, 명백한, 속이 뻔히 들여다 보이는, 명료한, 알기 쉬운)*/
   background-color: transparent;
   color: #333;
 }
@@ -76,12 +73,9 @@ a {
 
 /* Header */
 header {
-  /* width를 100%로 안주면 화면이 줄어들었을때 보이지 않음 */
   width: 100%;
-  /* position: relative; */
   background-color: #f6f5f0;
   border-bottom: 1px solid #c8c8c8;
-  /* absolute와 fixed는 가로넓이가 최소한으로 줄어드려고 한다. 즉 width:auto가 된다.(?), 이제 relative가 아닌 fixed로 위치상의 부모요소가 된다. */
   position: fixed;
   top: 0;
   z-index: 9;
@@ -122,7 +116,7 @@ header .sub-menu ul.menu li::before {
   bottom: 0;
   margin: auto;
 }
-header .sub-menu ul.menu li:first-child:before {
+header .sub-menu ul.menu li:first-child::before {
   display: none;
 }
 header .sub-menu ul.menu li a {
@@ -141,7 +135,8 @@ header .sub-menu .search {
 
 header .sub-menu .search input {
   width: 36px;
-  height: 34px;
+  /* height: 34px; 걍 상속시키기*/
+  height: inherit;
   padding: 4px 10px;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -164,7 +159,7 @@ header .sub-menu .search .material-icons {
   bottom: 0;
   right: 5px;
   margin: auto;
-  transition: 0.7;
+  transition: 0.7s;
 }
 header .sub-menu .search.focused .material-icons {
   opacity: 0;
@@ -176,7 +171,6 @@ header .main-menu {
   position: absolute;
   bottom: 0;
   right: 0;
-  /* header에 z-index를 줘서 필요 없을거 같은데 */
   z-index: 1;
 }
 
@@ -240,52 +234,42 @@ header .main-menu .item .item__contents .contents__texture p {
   margin: 4px 0 14px;
 }
 
-/* bedges */
-header .bedges {
-  /* 부모는 header가 되겠다. 위치상의 부모로 하기 위해 relative를 추가해주자 */
+/* badges */
+header .badges {
   position: absolute;
   top: 132px;
   right: 12px;
 }
-header .bedges .bedge {
-  /* hidden을 주지 않으면 깍이지 않는데, 그 이유는 div는 깍였지만 이미지가 깍이지 않은 것이라 hidden으로 넘치는 이미지를 숨겨버린 것이다. => 그 결과 깍이는 모양이 나옴 */
+header .badges .badge {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 12px;
-  /* 10px은 blur고 4px은 머라고 ?.. */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 }
 
 /* visual */
 .visual {
-  /* header의 inner 높이값, header는 높이값이 없기때문에(auto) 최대한 줄어들려고 한다. 그래서 안의 콘텐츠인 inner의 높이값을 가진다. */
   margin-top: 120px;
   background-image: url("../images/visual_bg.jpg");
   background-position: center;
 }
 .visual .inner {
-  /* 맨 위에 inner에 몇가지 속성을 지정해 놨지요?? */
   height: 646px;
 }
-/* inner 생략해줘도 된다. 그냥 중앙으로 몰아주기 위함이기 때문에 visual과 직접적인 곤련은 없다. */
 .visual .title {
-  /* common에 inner에 포지션을 이미 지정해 놨기 때문에 구조상의 inner인 .visual .inner에 또 굳이 포지션을 먹일 필요가 없다. */
   position: absolute;
   top: 88px;
   left: -10px;
 }
 .visual .title .btn {
-  /* 위의 title에 absolute라는 포지션이 들어가 있으므로, 구조,위치상의 부모가 잘 될것이다.  */
   position: absolute;
   top: 259px;
   left: 173px;
 }
-/* 일치 선택자 class:"cup1 image" 이렇게 되어있구나(둘 다 만족해야됨) */
 .visual .cup1.image {
   position: absolute;
   bottom: 0;
-  /* 0이면 공간이 오른쪽에 조금 존재한다. */
   right: -47px;
 }
 .visual .cup1.text {
@@ -300,11 +284,212 @@ header .bedges .bedge {
 }
 .visual .cup2.text {
   position: absolute;
-  top: 321;
+  top: 321px;
   right: 416px;
 }
 .visual .spoon {
   position: absolute;
   bottom: 0;
   left: 275px;
+}
+
+/* animation */
+.visual .fade-in {
+  opacity: 0;
+}
+
+/* notice */
+
+.notice .notice-line {
+  position: relative;
+}
+
+.notice .notice-line .bg-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #333;
+}
+
+.notice .notice-line .bg-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #f6f5ef;
+}
+
+.notice .notice-line .inner {
+  height: 62px;
+  z-index: 1;
+  /* inner의 left와 right를 수평으로 맞추기 위함 */
+  display: flex;
+}
+
+.notice .notice-line .inner__left {
+  width: 60%;
+  height: 100%;
+  background-color: #333;
+  /* 아래 요소들을 수평으로 맞춰줘야 한다 */
+  display: flex;
+  align-items: center;
+}
+.notice .notice-line .inner__left h2 {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.notice .notice-line .inner__left .swiper-container {
+  flex-grow: 1;
+  /* 공지사항이라는 글자를 수직 가운데를 하기 위해 item-center를 줬더니 여기의 공간이 사라졌다. 이걸 해결하기 위해 높이값을 준다. */
+  height: 62px;
+  overflow-y: hidden;
+}
+.notice .notice-line .inner__left .swiper-slide {
+  /* container 수직 중앙에 맞추기 위함 */
+  height: 62px;
+  display: flex;
+  align-items: center;
+}
+.notice .notice-line .inner__left .swiper-slide a {
+  color: #fff;
+}
+.notice .notice-line .inner__left .notice-line__more {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  /* 수평 가운데 */
+  justify-content: center;
+  /* 수직 가운데 */
+  align-items: center;
+}
+.notice .notice-line .inner__left .notice-line__more .material-icons {
+  color: #fff;
+  /* icon 기본 크기를 24px로 지정했었다. */
+  font-size: 30px;
+}
+
+.notice .notice-line .inner__right {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  /* 오른쪽 정렬 */
+  justify-content: flex-end;
+  /* 수직 정렬 */
+  align-items: center;
+}
+
+.notice .notice-line .inner__right h2 {
+  font-size: 17px;
+  font-weight: 700;
+}
+.notice .notice-line .inner__right .toggle-promotion {
+  width: 62px;
+  height: 62px;
+  /* a태그 아님 */
+  cursor: pointer;
+  /* 아이콘의 가운데 정렬을 위하여 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notice .notice-line .inner__right .toggle-promotion .material-icons {
+  font-size: 30px;
+}
+
+.notice .promotion {
+  position: relative;
+  height: 693px;
+  background-color: #e9dcd3;
+  transition: 0.4s;
+  overflow: hidden;
+}
+.notice .promotion.hide {
+  height: 0;
+}
+.notice .promotion .swiper-container {
+  /* 전체 width 계산하기, px 단위가 아니더라도 (100% - 50px같은,) 계산 가능  */
+  width: calc(819px * 3 + 20px);
+  height: 553px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  /* width의 반값을 주면 된다. 왜냐면 left에서 50% 떨어트려 놔서?..*/
+  margin-left: calc((819px * 3 + 20px) / -2);
+}
+.notice .promotion .swiper-slide {
+  opacity: 0.5;
+  transition: opacity 1s;
+  position: relative;
+}
+.notice .promotion .swiper-slide-active {
+  opacity: 1;
+}
+.notice .promotion .swiper-slide .btn {
+  /* .notice .promotion .swiper-slide 가 구조상, 위치상의 부모 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* btn에 width를 위에서 지정해놨기 때문에 margin auto로 가운데정렬이 된다. */
+  margin: auto;
+}
+
+/* pagination */
+.notice .promotion .swiper-pagination {
+  bottom: 40px;
+}
+/* swiper에서 자동으로 추가하는 class */
+.notice .promotion .swiper-pagination .swiper-pagination-bullet {
+  /* 기본값으로 클릭하면 파란불이였는데 이걸 없애고 bg-image의 초록색을 사용할 것이라 배경색상 사용x */
+  background-color: transparent;
+  background-image: url("../images/promotion_slide_pager.png");
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  outline: none;
+}
+/* bullet중에서 가장 마지막 동그라미 요소를 선택 */
+.notice .promotion .swiper-pagination .swiper-pagination-bullet:last-child {
+  /* 가장 마지막의 우측 여백은 필요가 없다. */
+  margin-right: 0;
+}
+.notice .promotion .swiper-pagination .swiper-pagination-bullet-active {
+  background-image: url(../images/promotion_slide_pager_on.png);
+}
+/* 다중선택자는 꼭 줄바꿈으 해줘야 한다. 쉼표가 잘 보이지 않아 헷갈릴 수 있기때문 */
+.notice .promotion .swiper-prev,
+.notice .promotion .swiper-next {
+  width: 42px;
+  height: 42px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  /* 부모가 promotion인데 이미 position값이 들어가 있다. */
+  position: absolute;
+  top: 300px;
+  z-index: 1;
+  cursor: pointer;
+  /* 이미지 가운데로 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+/* 아니 왼쪽, 오른쪽 따로 먹여야 할꺼면 굳이 다중선택자를 할 필요가 있나?..*/
+.notice .promotion .swiper-prev {
+  left: 50%;
+  margin-left: -480px;
+}
+.notice .promotion .swiper-next {
+  right: 50%;
+  margin-right: -480px;
+}
+.notice .promotion .swiper-prev:hover,
+.notice .promotion .swiper-next:hover {
+  background-color: #333;
+  color: #fff;
 }
