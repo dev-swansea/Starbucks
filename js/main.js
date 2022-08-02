@@ -29,35 +29,28 @@ window.addEventListener(
 
 // animation
 const fadeEls = document.querySelectorAll(".visual .fade-in");
-// 두 번째 매개변수는 반복되는 횟수를 index라는 이름으로 사용이 가능했다고요?
 fadeEls.forEach((fadeEl, index) => {
-  // gsap.to(요소, 작업시간(초 단위), 옵션{객체데이터}), delay는 순차적으로 보여주기 위해 사용하는 메소드
-  // delay:0.7은 0.7초 이후 보여지게 하는 것인데 둘 다 묶여있으므로 순차적 효과가 나타나지 않는다 그래서 (index + 1) *를 해준다.
-  gsap.to(fadeEl, 1, { opacity: 1, delay: (index + 1) * 0.7 }); //0.7, 1.4, 2.1, 2.7, 이렇게 하니까 굳이 작업시간을 명시해줄 필요가 없는데?
+  gsap.to(fadeEl, 1, { opacity: 1, delay: (index + 1) * 0.7 });
 });
 
 // notice slide
-// js 생성자(클래스) 함수에 선택자를 인수로 삽입해준다, 두 번째 인수로 옵션{object}을 넣어준다.
 new Swiper(".notice-line .swiper-container", {
   direction: "vertical",
-  // 자동
   autoplay: true,
-  // 반복
   loop: true,
 });
 
 // Promotion slide
 new Swiper(".promotion .swiper-container", {
-  // direction:horizontal default값으로 따로 명시할 필요가 없다(수직 이동)
-  slidesPerView: 3, //한번에 보여줄 슬라이드 갯수
-  spaceBetween: 10, //슬라이드 사이 여백
-  centeredSlides: true, //1번 슬라이드가 가운데 보이게 하기
+  slidesPerView: 3,
+  spaceBetween: 10,
+  centeredSlides: true,
   loop: true,
-  // autoplay: {
-  //   delay: 5000, //5초에 한 번씩 자동으로 슬라이드, 기본값은 3초
-  // },
+  autoplay: {
+    delay: 5000,
+  },
   pagination: {
-    el: ".promotion .swiper-pagination", //페이지 요소 번호 매기기
+    el: ".promotion .swiper-pagination",
     clickable: true,
   },
   navigation: {
@@ -72,13 +65,42 @@ const promotionToggleBtn = document.querySelector(".toggle-promotion");
 let isHidePromotion = false;
 
 promotionToggleBtn.addEventListener("click", () => {
-  // !로 반대의 값을 할당한다. true로만 하면 안되지, 또 다시 눌렀을 때도 계속 true가 되니까
   isHidePromotion = !isHidePromotion;
   if (isHidePromotion) {
-    // 숨김 처리
     promotionEl.classList.add("hide");
   } else {
-    // 보임 처리
     promotionEl.classList.remove("hide");
   }
 });
+
+// 범위 랜덤 함수(소수점 2자리까지)
+function random(min, max) {
+  // `.toFixed()`를 통해 반환된 문자 데이터를,
+  // `parseFloat()`을 통해 소수점을 가지는 숫자 데이터로 변환
+  return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+}
+
+// 이미지 플로팅 animation, 이 함수는 호출될때 인수로 어떤 요소를 선택할 것인지 선택자 라는 개념을 받을 것이다.
+const floatingObj = (selector, delay, size) => {
+  // gsap.to(요소, 시간, 옵션),
+  // random에서 반환된 값이 지속시간으로 사용될것, 시간 범위 1.5 ~ 2.5초
+  gsap.to(
+    selector, //선택자
+    random(1.5, 2.5), //동작 시간
+    {
+      // 옵션
+      y: size,
+      // -1은 무한반복, 이건 이 라이브러리에서 지원하는 기능이다.
+      repeat: -1,
+      // 한 번 재생된 애니메이션을 뒤로 재생시키는것
+      yoyo: true,
+      // 같은 값이여도 ease함수(타이밍 함수)를 통해 움직임을 제어할 수 있다.
+      ease: Power1.easeInOuteaseInOut,
+      delay: random(0, delay),
+    }
+  );
+};
+// css선택자를 인수로 넣어준다, 여기서 1,15가 뭔지 헷갈릴 수 있으니 매개변수 부분에 이름으로 명시해준다.
+floatingObj(".floating1", 1, 15);
+floatingObj(".floating2", 0.5, 15);
+floatingObj(".floating3", 1.5, 20);

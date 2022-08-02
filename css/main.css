@@ -493,3 +493,193 @@ header .badges .badge {
   background-color: #333;
   color: #fff;
 }
+
+/* REWARS */
+.rewards {
+  position: relative;
+}
+
+.rewards .bg-left {
+  width: 50%;
+  height: 100%;
+  background-color: #272727;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.rewards .bg-right {
+  width: 50%;
+  height: 100%;
+  background-color: #d5c798;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.rewards .inner {
+  background-image: url("../images/rewards.jpg");
+  height: 241px;
+}
+
+.rewards .btn-group {
+  /* inner는 위에서 포지션 지정을 해줬쥬? */
+  position: absolute;
+  bottom: 24px;
+  right: 0;
+  width: 250px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.rewards .btn-group .btn.sign-up {
+  margin-right: 10px;
+}
+.rewards .btn-group .btn.sign-in {
+  width: 110px;
+}
+.rewards .btn-group .btn.gift {
+  margin-top: 10px;
+  flex-grow: 1;
+}
+
+/* YOUTUBE VIDEO */
+.youtube {
+  position: relative;
+  /* 임시의 높이값 */
+  height: 700px;
+  background-color: #333;
+  overflow: hidden;
+}
+.youtube .youtube__area {
+  /* full hd 화면을 기준으로 */
+  width: 1920px;
+  background-color: teal;
+  position: absolute;
+  /* 중앙 정렬 */
+  left: 50%;
+  margin-left: calc(1920px / -2);
+  top: 50%;
+  /* 16:9를 맞추면서 위쪽으로 끌어올리기 위함*/
+  margin-top: calc(1920px * 9 / 16 / -2);
+}
+/* css 작업을 위한 것이니 html에 요소를 추가하지 않고 가상요소 선택자로 처리한다, => 예시로 들어줬던 코드펜에서의 item 역할을 한다.(padding으로 height를 지정하는) */
+.youtube .youtube__area::before {
+  content: "";
+  /* before는 inline 요소 */
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+}
+.youtube .youtube__cover {
+  background-image: url(../images/video_cover_pattern.png);
+  /* 30%의 불투명도를 가지는 검정색 */
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#player {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 유튜브 이미지 */
+.youtube .inner {
+  height: 700px;
+}
+
+.youtube .floating1 {
+  position: absolute;
+  top: 50px;
+  left: 0;
+}
+.youtube .floating2 {
+  position: absolute;
+  top: 350px;
+  left: 150px;
+}
+
+/* SEASON PRODUCT */
+.season-product {
+  background-image: url("../images/season_product_bg.jpg");
+}
+.season-product .inner {
+  height: 400px;
+}
+
+.season-product .floating3 {
+  position: absolute;
+  top: -200px;
+  right: 0;
+}
+
+.season-product .text-group {
+  position: absolute;
+  top: 110px;
+  right: 100px;
+}
+.season-product .text-group .title {
+  margin-bottom: 10px;
+}
+.season-product .text-group .description {
+  margin-bottom: 15px;
+}
+.season-product .text-group .more {
+}
+
+/* RESERVE COFFEE */
+.reserve-coffee {
+  /* repeat이 기본값인거 알지? */
+  background-image: url(../images/reserve_bg.jpg);
+}
+.reserve-coffee .inner {
+  height: 400px;
+}
+.reserve-coffee .reserve-logo {
+  position: absolute;
+  top: 110px;
+  left: 0;
+}
+.reserve-coffee .text-group {
+  position: absolute;
+  top: 124px;
+  left: 208px;
+}
+.reserve-coffee .product {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* PICK YOUR FAVORITE */
+.pick-your-favorite {
+  background-image: url("../images/favorite_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  /* 스크롤 될때 뷰포트에 고정되게 하는 속성이다, 이런 간단한 애니메이션 효과를 패럴렉스? 라고 한다. */
+  background-attachment: fixed;
+  /* 이미지를 요소의 더 넓은 범위에 맞춰 출력한다. */
+  background-size: cover;
+}
+.pick-your-favorite .inner {
+  padding: 110px 0;
+}
+.pick-your-favorite .text-group {
+  margin-left: 100px;
+  display: flex;
+  width: 362px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.pick-your-favorite .text-group .title {
+  margin-bottom: 40px;
+}
+.pick-your-favorite .text-group .description {
+  margin-bottom: 40px;
+}
