@@ -71,6 +71,37 @@ a {
   background-color: #fff;
 }
 
+/* SCROLL MAGIC */
+.back-to-position {
+  opacity: 0;
+  transition: 1s;
+}
+.back-to-position.to-right {
+  /* 왼쪽에서 오른쪽으로 나타나는 애니메이션 */
+  transform: translateX(-150px);
+}
+.back-to-position.to-left {
+  /* 오른쪽에서 왼쪽으로 나타나는 애니메이션 */
+  transform: translateX(150px);
+}
+.show .back-to-position {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* 전환효과 처리 지연시간, 요소가 순서대로 나타나게 해주기 위함 */
+.show .back-to-position.delay-0 {
+  transition-delay: 0s;
+}
+.show .back-to-position.delay-1 {
+  transition-delay: 0.3s;
+}
+.show .back-to-position.delay-2 {
+  transition-delay: 0.6s;
+}
+.show .back-to-position.delay-3 {
+  transition-delay: 0.9s;
+}
+
 /* Header */
 header {
   width: 100%;
@@ -682,4 +713,250 @@ header .badges .badge {
 }
 .pick-your-favorite .text-group .description {
   margin-bottom: 40px;
+}
+
+/* RESERVE STORE */
+.reserve-store {
+  background-image: url("../images/reserve_store_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.reserve-store .inner {
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reserve-store .medal {
+  /* 원근법을 줘서 3D처럼 보이게끔하고, 늘어나려는 특성때문에 가로 세로 너비를 지정해준다. */
+  width: 334px;
+  height: 334px;
+  perspective: 600px;
+}
+
+.reserve-store .medal .front,
+.reserve-store .medal .back {
+  width: 334px;
+  height: 334px;
+  position: absolute;
+  transition: 1s;
+  backface-visibility: hidden;
+}
+
+.reserve-store .medal .front {
+  transform: rotateY(0deg);
+}
+.reserve-store .medal:hover .front {
+  transform: rotateY(180deg);
+}
+
+.reserve-store .medal .back {
+  transform: rotateY(-180deg);
+}
+.reserve-store .medal:hover .back {
+  transform: rotateY(0deg);
+}
+
+.reserve-store .medal .back .btn {
+  position: absolute;
+  top: 240px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+/* FIND STORE */
+.find-store {
+  background-image: url("../images/find_store_bg.jpg");
+}
+.find-store .inner {
+  height: 400px;
+}
+.find-store .texture1 {
+  position: absolute;
+  top: 0;
+  left: 400px;
+}
+.find-store .texture2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.find-store .picture {
+  border-radius: 50%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  position: absolute;
+}
+.find-store .picture1 {
+  top: -60px;
+  left: 0;
+}
+.find-store .picture2 {
+  top: 150px;
+  left: 250px;
+}
+.find-store .text-group {
+  position: absolute;
+  top: 120px;
+  left: 550px;
+}
+.find-store .text-group .title {
+  margin-bottom: 20px;
+}
+.find-store .text-group .description {
+  margin-bottom: 20px;
+}
+
+/* AWARDS */
+.awards {
+  background-color: #272727;
+}
+.awards .inner {
+  padding: 40px 0;
+}
+.awards .swiper-container {
+  width: 100%;
+  height: 40px;
+  overflow-x: hidden;
+}
+.awards .swiper-prev,
+.awards .swiper-next {
+  width: 42px;
+  height: 42px;
+  outline: none;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0.3;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.awards .swiper-prev {
+  left: -100px;
+}
+.awards .swiper-next {
+  right: -100px;
+}
+
+.awards .swiper-prev:hover,
+.awards .swiper-next:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+/* FOOTER */
+footer {
+  background-color: #272727;
+  border-top: 2px solid #333;
+}
+footer .inner {
+  /* 시계방향으로 도는거 알지? */
+  padding: 40px 0 60px 0;
+}
+footer .menu {
+  display: flex;
+  justify-content: center;
+}
+footer .menu li {
+  position: relative;
+}
+/* 메뉴 사이에 점을 찍기 위하여, 가상요소의 부모는 그냥 앞에 요소 */
+footer .menu li::before {
+  content: "";
+  /* li도 inline요소인데 position absolute(or fixed)가 있기 때문에 block으로 바뀐다. */
+  width: 3px;
+  height: 3px;
+  background-color: #555;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: -1px;
+}
+/* 마지막 점은 필요가 없다. */
+footer .menu li:last-child::before {
+  display: none;
+}
+
+footer .menu li a {
+  color: #ccc;
+  font-size: 12px;
+  font-weight: 700;
+  /* 이 친구는 inline요소라 y값을 먹지 않으므로 block으로 바꿔줘야 한다. */
+  padding: 15px;
+  /* a요소 클릭 범위를 늘리기 위함 */
+  display: block;
+}
+/* 첫 번째 요소를 강조하고 싶어서 */
+footer .menu li a.green {
+  color: #669900;
+}
+
+footer .btn-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+footer .btn-group .btn {
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+footer .btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+footer .info {
+  margin-top: 30px;
+  text-align: center;
+}
+/* inline은 수평으로 쌓이죠? 글씨취급 하니까요 */
+footer .info span {
+  margin-right: 20px;
+  color: #999;
+  font-size: 12px;
+}
+footer .info span:last-child {
+  margin-right: 0;
+}
+footer .copyright {
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+footer .logo {
+  /* 상,중,하로 해석 알지? */
+  margin: 30px auto 0;
+  /*로고는 img 요소이기 때문에 가로 너비를 지정해주지 않아도 브라우저가 알고 있다고?  */
+}
+
+/* TOP */
+#to-top {
+  width: 42px;
+  height: 42px;
+  background-color: #333;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9;
 }

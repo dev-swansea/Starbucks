@@ -16,16 +16,30 @@ searchInputEl.addEventListener("blur", () => {
 });
 
 const badgeEl = document.querySelector("header .badges");
+const toTopEl = document.getElementById("to-top");
+// gsap은 위에서처럼 직접 찾아줘서 첫 번째 요소로 넣어줘도 되지만 css 선택자만 적어놔도 알아서 찾는다.
 window.addEventListener(
   "scroll",
   _.throttle(() => {
     if (window.scrollY > 500) {
       gsap.to(badgeEl, 0.6, { opacity: 0, display: "none" });
+      // 위로가기 버튼 보이게 하기,
+      gsap.to(toTopEl, 0.2, { x: 0 });
     } else {
       gsap.to(badgeEl, 0.6, { opacity: 1, display: "block" });
+      // 위로가기 버튼 사라지게 하기, 오른쪽으로 100px 옮겨버린다, window라서 가능한 거구나
+      gsap.to(toTopEl, 0.2, { x: 100 });
     }
   }, 300)
 );
+
+// 누르면 올라가게
+toTopEl.addEventListener("click", () => {
+  gsap.to(window, 0.7, {
+    // 스크롤 위치를 0으로 이동시켜 준다, scrollTo 이걸 위해 cdn으로 가져온 것
+    scrollTo: 0,
+  });
+});
 
 // animation
 const fadeEls = document.querySelectorAll(".visual .fade-in");
@@ -59,6 +73,19 @@ new Swiper(".promotion .swiper-container", {
   },
 });
 
+// AWARDS
+new Swiper(".awards .swiper-container", {
+  // direction: "horizontal", 수평, 이건 기본값
+  autoplay: true,
+  loop: true,
+  spaceBetween: 30,
+  slidesPerView: 5,
+  navigation: {
+    prevEl: ".awards .swiper-prev",
+    nextEl: ".awards .swiper-next",
+  },
+});
+
 const promotionEl = document.querySelector(".promotion");
 const promotionToggleBtn = document.querySelector(".toggle-promotion");
 
@@ -73,34 +100,38 @@ promotionToggleBtn.addEventListener("click", () => {
   }
 });
 
-// 범위 랜덤 함수(소수점 2자리까지)
 function random(min, max) {
-  // `.toFixed()`를 통해 반환된 문자 데이터를,
-  // `parseFloat()`을 통해 소수점을 가지는 숫자 데이터로 변환
   return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 }
 
-// 이미지 플로팅 animation, 이 함수는 호출될때 인수로 어떤 요소를 선택할 것인지 선택자 라는 개념을 받을 것이다.
 const floatingObj = (selector, delay, size) => {
-  // gsap.to(요소, 시간, 옵션),
-  // random에서 반환된 값이 지속시간으로 사용될것, 시간 범위 1.5 ~ 2.5초
-  gsap.to(
-    selector, //선택자
-    random(1.5, 2.5), //동작 시간
-    {
-      // 옵션
-      y: size,
-      // -1은 무한반복, 이건 이 라이브러리에서 지원하는 기능이다.
-      repeat: -1,
-      // 한 번 재생된 애니메이션을 뒤로 재생시키는것
-      yoyo: true,
-      // 같은 값이여도 ease함수(타이밍 함수)를 통해 움직임을 제어할 수 있다.
-      ease: Power1.easeInOuteaseInOut,
-      delay: random(0, delay),
-    }
-  );
+  gsap.to(selector, random(1.5, 2.5), {
+    y: size,
+    repeat: -1,
+    yoyo: true,
+    ease: Power1.easeInOuteaseInOut,
+    delay: random(0, delay),
+  });
 };
-// css선택자를 인수로 넣어준다, 여기서 1,15가 뭔지 헷갈릴 수 있으니 매개변수 부분에 이름으로 명시해준다.
 floatingObj(".floating1", 1, 15);
 floatingObj(".floating2", 0.5, 15);
 floatingObj(".floating3", 1.5, 20);
+
+// SCROLLMAGIC                            섹션태그의 .scroll-spy 클래스
+const spyEls = document.querySelectorAll("section.scroll-spy");
+// 특정한 섹션이 화면에 보이면 애니메이션을 추가해 줄 수 있다고 ?
+spyEls.forEach((spyEl) => {
+  // 특정한 요소를 감시하는 옵션을 지정하는 메소드, setClassToggle은 class를 toggle로 지정한다, addTo는 scrollMagic의 컨트롤러로 꼭 필요한 메서드라고 문서에 작성되어 있다 한다.
+  new ScrollMagic.Scene({
+    triggerElement: spyEl, //보여짐 여부를 감시할 요소를 지정
+    //viewport가 0~ 1 까지라고 하면 0.8에 trigger가 걸어 그곳에 어떠한 섹션이 걸리면 trigger가 된다. =>.setClassToggle()이 실행된다.
+    triggerHook: 0.8,
+  })
+    .setClassToggle(spyEl, "show") //두개의 인수가 들어갈 수 있다.
+    .addTo(new ScrollMagic.Controller()); //실제로 동작할 수 있게 만들어준다.
+});
+
+// 년도 계산
+const thisyear = document.querySelector(".this-year");
+// 값을 지정 Date는 JS의 생성자 함수라고 한다. 날짜 정보를 가진 date 객체를 뽑아낼 수 있다고?
+thisyear.textContent = new Date().getFullYear(); //2022
